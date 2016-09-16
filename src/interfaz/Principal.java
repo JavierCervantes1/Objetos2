@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
  * @author LabRedes
  */
 public class Principal extends javax.swing.JFrame {
+    Fraccionario f1, f2, f3 = null;
 
     /**
      * Creates new form Principal
@@ -318,18 +319,23 @@ public class Principal extends javax.swing.JFrame {
 
     private void cmdFraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdFraActionPerformed
         // TODO add your handling code here:
-        int num,den,ent, n3, d3, Pe;
-        
+        int n3, d3, Pe;
+        Fraccionario f;
+
         n3 = Integer.parseInt(txtNumerador3.getText());
         d3 = Integer.parseInt(txtDenominador3.getText());
         Pe = Integer.parseInt(txtPe.getText());
-        num=(Pe*d3)+n3;
-        den=d3;
-        txtPe.setText("");
-        txtNumerador3.setText("" + num);
-        txtDenominador3.setText("" + den);
+        try {
+            f3 = new Fraccionario(Pe, n3, d3);
+            f = f3.Conversion();
+            txtPe.setText("");
+            txtNumerador3.setText("" + f3.getNumerador());
+            txtDenominador3.setText("" + f3.getDenominador());
+            cmdFra.setEnabled(false);
+        } catch (DenominadorCeroException ex) {
+            Helper.mensaje(null, "No puede digitar cero de denominador", "Error", 2);
+        }
         txtPe1.requestFocusInWindow();
-        cmdFra.setEnabled(false);
     }//GEN-LAST:event_cmdFraActionPerformed
 
     /**
